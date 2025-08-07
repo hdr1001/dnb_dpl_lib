@@ -19,8 +19,7 @@
 //
 // ***************************************************************** */
 
-function cssTable() {
-  return `
+const cssTable = () => `
 * {
   box-sizing: border-box;
 }
@@ -75,7 +74,6 @@ th[scope="row"] {
 td {
   font-size: smaller;
 }
-  `;
-}
+`;
 
 export { cssTable };
