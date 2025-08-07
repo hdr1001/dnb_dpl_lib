@@ -1,13 +1,16 @@
 {
   "name": "dnb_dpl_lib",
+  "description": "Library of D&B Direct+ functionality",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview"
   },
+  "author": "Hans de Rooij",
+  "license": "Apache-2.0",
   "devDependencies": {
     "vite": "^7.1.0"
   }

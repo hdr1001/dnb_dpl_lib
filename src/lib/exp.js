@@ -1,6 +1,6 @@
 /* ********************************************************************
 //
-// The main JavaScript code file powering the app's index page
+// Collection of D&B Direct+ library functionality for export
 //
 // Copyright 2025 Hans de Rooij
 //
@@ -19,15 +19,8 @@
 //
 // ***************************************************************** */
 
-import './style.css';
-import { cssTable } from './lib/exp.js';
+import { cssTable } from "./code/csstable";
 
-document.querySelector('#app').innerHTML = `
-  <div>
-    <h2>Javascript D&B Direct+ library</h2>
-    <p>
-      Simple page to test the D&B Direct+ library functionality.
-    </p>
-    <pre>${cssTable()}</pre>
-  </div>
-`;
+export { 
+  cssTable
+};
