@@ -1,6 +1,6 @@
 /* ********************************************************************
 //
-// Collection of D&B Direct+ library functionality for export
+// Top level CSS formating for HTML tables in Postman
 //
 // Copyright 2025 Hans de Rooij
 //
@@ -19,10 +19,16 @@
 //
 // ***************************************************************** */
 
-import { cssTop } from "./code/csstop";
-import { cssTable } from "./code/csstable";
+const cssTop = () => `
+* {
+  box-sizing: border-box;
+}
 
-export { 
-  cssTop,
-  cssTable
-};
+body {
+  font-family: 'Open Sans', sans-serif;
+  line-height: 1.5;
+}
+
+`;
+
+export { cssTop };

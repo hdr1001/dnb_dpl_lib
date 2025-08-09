@@ -20,15 +20,6 @@
 // ***************************************************************** */
 
 const cssTable = () => `
-* {
-  box-sizing: border-box;
-}
-
-body {
-  font-family: 'Open Sans', sans-serif;
-  line-height: 1.5;
-}
-
 .wrapper {
   overflow: scroll;
 }
@@ -55,12 +46,12 @@ tfoot {
 
 th, td {
   border: 1px solid lightgrey;
-  padding: 0.25rem 0.75rem;
+  padding: 0.25rem 0.5rem;
 }
 
 th[scope="col"] {
   text-align: center;
-  padding: 0.25rem 0.75rem;
+  padding: 0.25rem 0.5rem;
 }
 
 th[scope="row"] {
@@ -68,12 +59,13 @@ th[scope="row"] {
   font-weight: normal;
   background: #f9f9f9;
   font-size: smaller;
-  padding: 0.25rem 0.75rem;
+  padding: 0.25rem 0.5rem;
 }
 
 td {
   font-size: smaller;
 }
+
 `;
 
 export { cssTable };
