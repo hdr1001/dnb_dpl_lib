@@ -28,7 +28,6 @@ body {
   font-family: 'Open Sans', sans-serif;
   line-height: 1.5;
 }
-
 `;
 
 export { cssTop };

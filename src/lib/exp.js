@@ -19,8 +19,8 @@
 //
 // ***************************************************************** */
 
-import { cssTop } from "./code/csstop";
-import { cssTable } from "./code/csstable";
+import { cssTop } from "./code/css/top.js";
+import { cssTable } from "./code/css/table.js";
 
 export { 
   cssTop,

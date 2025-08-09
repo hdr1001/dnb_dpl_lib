@@ -19,8 +19,7 @@
 //
 // ***************************************************************** */
 
-import './style.css';
-import { cssTable } from './lib/exp.js';
+import { cssTop, cssTable } from './lib/exp.js';
 
 document.querySelector('#app').innerHTML = `
   <div>
@@ -28,6 +27,6 @@ document.querySelector('#app').innerHTML = `
     <p>
       Simple page to test the D&B Direct+ library functionality.
     </p>
-    <pre>${cssTable()}</pre>
+    <pre>${cssTop() + cssTable()}</pre>
   </div>
 `;
