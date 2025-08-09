@@ -21,8 +21,10 @@
 
 import { cssTop } from "./code/css/top.js";
 import { cssTable } from "./code/css/table.js";
+import { DplDBs } from "./code/js/dnbDplDBs/main.js";
 
 export { 
   cssTop,
-  cssTable
+  cssTable,
+  DplDBs
 };

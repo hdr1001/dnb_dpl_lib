@@ -19,7 +19,7 @@
 //
 // ***************************************************************** */
 
-import { cssTop, cssTable } from './lib/exp.js';
+import { DplDBs } from './lib/exp.js';
 
 document.querySelector('#app').innerHTML = `
   <div>
@@ -27,6 +27,6 @@ document.querySelector('#app').innerHTML = `
     <p>
       Simple page to test the D&B Direct+ library functionality.
     </p>
-    <pre>${cssTop() + cssTable()}</pre>
+    <pre>${new DplDBs({ organization: { primaryName: 'Test Org', duns: '123456789' } })}</pre>
   </div>
 `;
