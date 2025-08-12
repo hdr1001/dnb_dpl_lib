@@ -1,6 +1,6 @@
 /* ********************************************************************
 //
-// Collection of D&B Direct+ library functionality for export
+// Constants related to D&B Direct+ Data Blocks
 //
 // Copyright 2025 Hans de Rooij
 //
@@ -19,15 +19,10 @@
 //
 // ***************************************************************** */
 
-import { cssTop } from "./code/css/top.js";
-import { cssTable } from "./code/css/table.js";
-import { DplDBs } from "./code/js/dnbDplDBs/main.js";
-
-export {
-  //CSS for use in Postman
-  cssTop,
-  cssTable,
-
-  //D&B Direct+ Data Blocks JavaScript object wrapper
-  DplDBs
+export const constDnbDplDBs = {
+    blockIDs: { //Parts of the blockIDs attribute
+        key: 0,
+        level: 1,
+        ver: 2
+    },
 };

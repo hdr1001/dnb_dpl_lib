@@ -27,6 +27,36 @@ document.querySelector('#app').innerHTML = `
     <p>
       Simple page to test the D&B Direct+ library functionality.
     </p>
-    <pre>${new DplDBs({ organization: { primaryName: 'Test Org', duns: '123456789' } })}</pre>
+    <pre>${JSON.stringify(new DplDBs( {
+      inquiryDetail: {
+        duns: "489478007",
+        "blockIDs": [
+            "companyinfo_L2_v1",
+            "principalscontacts_L3_v2"
+        ]
+      },
+      organization: {
+        primaryName: 'Test Org',
+        duns: '123456789',
+        countryISO: 'NL'
+      },
+      blockStatus: [
+        {
+            blockID: "companyinfo_L2_v1",
+            status: "ok",
+            reason: null
+        },
+        {
+            blockID: "principalscontacts_L3_v2",
+            status: "ok",
+            reason: null
+        },
+        {
+            blockID: "baseinfo_L1_v1",
+            status: "ok",
+            reason: null
+        }
+      ]
+    } ).reqRespBlockStatus)}</pre>
   </div>
 `;

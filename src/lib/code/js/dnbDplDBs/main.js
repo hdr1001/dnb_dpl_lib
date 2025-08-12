@@ -19,6 +19,8 @@
 //
 // ***************************************************************** */
 
+import { reqBlockIDs, respBlockStatus, reqRespBlockStatus } from "./reqResp.js";
+
 //Check if a variable is an object reference to D&B Direct+ data blocks
 function isDnbDplDBsJsObj(dbs) {
     if(typeof dbs === 'object' && dbs.organization) return true;
@@ -33,7 +35,7 @@ class DplDBs {
             //Store a reference to the object passed in to the constructor
             this.dplDBs = dbs;
         }
-        else {
+        else { //Assume a JSON string or buffer is passed in
             try {
                 this.dplDBs = JSON.parse(dbs);
 
@@ -51,8 +53,17 @@ class DplDBs {
         this.org = this.dplDBs.organization;
     }
 
+    //List the D&B Direct+ Data Blocks requested with level and version
+    get reqBlockIDs() { return reqBlockIDs.call(this) }
+
+    //List the D&B Direct+ Data Blocks response with status and reason
+    get respBlockStatus() { return respBlockStatus.call(this) }
+
+    //List all the D&B Direct+ Data Blocks request & response details
+    get reqRespBlockStatus() { return reqRespBlockStatus.call(this) }
+
     toString() {
-        return this.org.primaryName + ' (' + this.org.duns + ')'; 
+        return `DUNS ${this.org.duns}: ${this.org.primaryName} (${this.org.countryISO})`; 
     }
 }
 
