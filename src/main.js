@@ -21,24 +21,19 @@
 
 import { DplDBs } from './lib/exp.js';
 
-document.querySelector('#app').innerHTML = `
-  <div>
-    <h2>Javascript D&B Direct+ library</h2>
-    <p>
-      Simple page to test the D&B Direct+ library functionality.
-    </p>
-    <pre>${JSON.stringify(new DplDBs( {
+const dnbDplDBs = new DplDBs( {
       inquiryDetail: {
         duns: "489478007",
         "blockIDs": [
             "companyinfo_L2_v1",
             "principalscontacts_L3_v2"
-        ]
+        ],
+        "tradeUp": "hq"
       },
       organization: {
         primaryName: 'Test Org',
         duns: '123456789',
-        countryISO: 'NL'
+        countryISOAlpha2Code: 'NL'
       },
       blockStatus: [
         {
@@ -57,6 +52,15 @@ document.querySelector('#app').innerHTML = `
             reason: null
         }
       ]
-    } ).reqRespBlockStatus)}</pre>
+    });
+
+document.querySelector('#app').innerHTML = `
+  <div>
+    <h2>Javascript D&B Direct+ library</h2>
+    <p>
+      Simple page to test the D&B Direct+ library functionality.
+    </p>
+    <h3>${dnbDplDBs}</h3>
+    <div>${dnbDplDBs.htmlBase}</div>
   </div>
 `;

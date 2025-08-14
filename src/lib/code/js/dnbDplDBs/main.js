@@ -19,7 +19,9 @@
 //
 // ***************************************************************** */
 
-import { reqBlockIDs, respBlockStatus, reqRespBlockStatus } from "./reqResp.js";
+import { destructureDbData } from './destructureDBs.js';
+import { reqBlockIDs, respBlockStatus, reqRespBlockStatus } from './reqResp.js';
+import { htmlReqRespBlockStatus, htmlBase } from './html.js';
 
 //Check if a variable is an object reference to D&B Direct+ data blocks
 function isDnbDplDBsJsObj(dbs) {
@@ -51,6 +53,22 @@ class DplDBs {
 
         //Create a shortcut to the organization attribute
         this.org = this.dplDBs.organization;
+
+        //One-to-one mappings
+        this.map121 = { //Directly mapped values
+            //Inquiry detail
+            inqDuns: this.dplDBs?.inquiryDetail?.duns,
+            tradeUp: this.dplDBs?.inquiryDetail?.tradeUp,
+            custRef: this.dplDBs?.inquiryDetail?.customerReference,
+
+            //Base data-elements
+            duns:        this.org?.duns,
+            primaryName: this.org?.primaryName,
+            countryISO:  this.org?.countryISOAlpha2Code
+        }
+
+        //Destructure the D&B Direct+ Data Blocks
+        this.dbData = destructureDbData.call(this);
     }
 
     //List the D&B Direct+ Data Blocks requested with level and version
@@ -62,8 +80,14 @@ class DplDBs {
     //List all the D&B Direct+ Data Blocks request & response details
     get reqRespBlockStatus() { return reqRespBlockStatus.call(this) }
 
+    //D&B Direct+ Data Blocks request & response details in HTML format
+    get htmlReqRespBlockStatus() { return htmlReqRespBlockStatus.call(this) }
+
+    //D&B Direct+ Data Blocks base data in HTML format
+    get htmlBase() { return htmlBase.call(this) }
+
     toString() {
-        return `DUNS ${this.org.duns}: ${this.org.primaryName} (${this.org.countryISO})`; 
+        return `DUNS ${this.map121.duns}: ${this.map121.primaryName} (${this.map121.countryISO})`; 
     }
 }
 

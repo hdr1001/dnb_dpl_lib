@@ -19,7 +19,7 @@
 //
 // ***************************************************************** */
 
-import { constDnbDplDBs as appConsts } from './const.js';
+import { splitBlockID } from '../share/utils.js';
 
 //List the D&B Direct+ Data Blocks requested with level and version
 //Input, for example:
@@ -36,29 +36,13 @@ import { constDnbDplDBs as appConsts } from './const.js';
 //
 function reqBlockIDs() {
     //Return an array in case blockIDs is null or undefined
-    if(this.dplDBs?.inquiryDetail?.blockIDs == null) return [];
+    if(!this.dbData?.generic?.base?.inquiryDetail?.blockIDs == null) return [];
 
     //Throw a type error if blockIDs is not an array
-    if(!Array.isArray(this.dplDBs?.inquiryDetail?.blockIDs)) throw new TypeError('inquiryDetail.blockIDs must be an array');
-
-    //The blockID entry is a string and consists of key, level & version
-    const idxKey = appConsts.blockIDs.key;
-    const idxLevel = appConsts.blockIDs.level;
-    const idxVer = appConsts.blockIDs.ver;
+    if(!Array.isArray(this.dbData?.generic?.base?.inquiryDetail?.blockIDs)) throw new TypeError('inquiryDetail.blockIDs must be an array');
 
     //Transform the blockID array of strings
-    return this.dplDBs.inquiryDetail.blockIDs.reduce((obj, blockID) => {
-        const arrBlockID = blockID.split('_');
-
-        obj[arrBlockID[idxKey]] = {
-            req: {
-                level: parseInt( arrBlockID[idxLevel].substring(1) ),
-                version: parseInt( arrBlockID[idxVer].substring(1) )
-            }
-        };
-
-        return obj;
-    }, {});
+    return this.dbData.generic.base.inquiryDetail.blockIDs.reduce((obj, blockID) => { splitBlockID(obj, blockID); return obj; }, {});
 }
 
 //List the D&B Direct+ Data Blocks response with status and reason
@@ -76,28 +60,17 @@ function reqBlockIDs() {
 //
 function respBlockStatus() {
     //Return an array in case blockStatus is null or undefined
-    if(this.dplDBs?.blockStatus == null) return [];
+    if(this.dbData?.generic?.base?.blockStatus == null) return [];
 
     //Throw a type error if blockStatus is not an array
-    if(!Array.isArray(this.dplDBs?.blockStatus)) throw new TypeError('blockStatus must be an array');
-
-    //The blockID entry is a string and consists of key, level & version
-    const idxKey = appConsts.blockIDs.key;
-    const idxLevel = appConsts.blockIDs.level;
-    const idxVer = appConsts.blockIDs.ver;
+    if(!Array.isArray(this.dbData?.generic?.base?.blockStatus)) throw new TypeError('blockStatus must be an array');
 
     //Transform the blockStatus array of strings
-    return this.dplDBs.blockStatus.reduce((obj, block) => {
-        const arrBlockID = block.blockID.split('_');
+    return this.dbData.generic.base.blockStatus.reduce((obj, block) => {
+        const ID = splitBlockID(obj, block.blockID, 'resp');
 
-        obj[arrBlockID[idxKey]] = {
-            resp: {
-                level: parseInt( arrBlockID[idxLevel].substring(1) ),
-                version: parseInt( arrBlockID[idxVer].substring(1) ),
-                status: block.status,
-                reason: block.reason
-            }
-        };
+        obj[ID].resp.status = block.status;
+        obj[ID].resp.reason = block.reason;
 
         return obj;
     }, {});
