@@ -1,6 +1,6 @@
 /* ********************************************************************
 //
-// Destructure D&B Direct+ Data Blocks
+// Miscellaneous HTML utility functions
 //
 // Copyright 2025 Hans de Rooij
 //
@@ -19,23 +19,27 @@
 //
 // ***************************************************************** */
 
-import { isEmpty } from '../share/utils.js';
+//Prepare JS content for display in HTML
+const htmlContent = inp => {
+    if (inp == null) return ''; //Handle null or undefined
 
-export function destructureDbData() {
-    //This object will be returned
-    const dbData = {};
+    if (typeof inp === 'string') { //Handle strings
+        return inp.replace(
+            /[&<>'"]/g,
+            tag =>
+                ({
+                    '&': '&amp;',
+                    '<': '&lt;',
+                    '>': '&gt;',
+                    "'": '&#39;',
+                    '"': '&quot;'
+                }[tag] || tag
+            ))
+    }
 
-    //Destructure the D&B Direct+ Data Blocks base info
-    const { transactionDetails, inquiryDetail, blockStatus } = this.dplDBs;
+    return String(inp);
+};
 
-    dbData.generic = { base: {} }
-
-    //Add attributes if they add value
-    if(!isEmpty(transactionDetails)) dbData.generic.base.transactionDetails = transactionDetails;
-    if(!isEmpty(inquiryDetail)) dbData.generic.base.inquiryDetail = inquiryDetail;
-    if(!isEmpty(blockStatus)) dbData.generic.base.blockStatus = blockStatus;
-
-    if(!Object.keys(dbData.generic.base).length) delete dbData.generic;
-
-    return dbData;
-}
+export {
+    htmlContent
+};

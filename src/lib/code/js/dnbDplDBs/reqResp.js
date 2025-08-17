@@ -36,13 +36,13 @@ import { splitBlockID } from '../share/utils.js';
 //
 function reqBlockIDs() {
     //Return an array in case blockIDs is null or undefined
-    if(!this.dbData?.generic?.base?.inquiryDetail?.blockIDs == null) return [];
+    if(!this.dplDBs.inquiryDetail?.blockIDs == null) return [];
 
     //Throw a type error if blockIDs is not an array
-    if(!Array.isArray(this.dbData?.generic?.base?.inquiryDetail?.blockIDs)) throw new TypeError('inquiryDetail.blockIDs must be an array');
+    if(!Array.isArray(this.dplDBs.inquiryDetail?.blockIDs)) throw new TypeError('inquiryDetail.blockIDs must be an array');
 
     //Transform the blockID array of strings
-    return this.dbData.generic.base.inquiryDetail.blockIDs.reduce((obj, blockID) => { splitBlockID(obj, blockID); return obj; }, {});
+    return this.dplDBs.inquiryDetail.blockIDs.reduce((obj, blockID) => { splitBlockID(obj, blockID); return obj; }, {});
 }
 
 //List the D&B Direct+ Data Blocks response with status and reason
@@ -60,13 +60,13 @@ function reqBlockIDs() {
 //
 function respBlockStatus() {
     //Return an array in case blockStatus is null or undefined
-    if(this.dbData?.generic?.base?.blockStatus == null) return [];
+    if(this.dplDBs.blockStatus == null) return [];
 
     //Throw a type error if blockStatus is not an array
-    if(!Array.isArray(this.dbData?.generic?.base?.blockStatus)) throw new TypeError('blockStatus must be an array');
+    if(!Array.isArray(this.dplDBs.blockStatus)) throw new TypeError('blockStatus must be an array');
 
     //Transform the blockStatus array of strings
-    return this.dbData.generic.base.blockStatus.reduce((obj, block) => {
+    return this.dplDBs.blockStatus.reduce((obj, block) => {
         const ID = splitBlockID(obj, block.blockID, 'resp');
 
         obj[ID].resp.status = block.status;

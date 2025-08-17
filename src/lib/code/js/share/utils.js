@@ -21,27 +21,6 @@
 
 import { constDnbDplDBs } from '../dnbDplDBs/const.js';
 
-//Prepare JS content for display in HTML
-const htmlContent = inp => {
-    if (inp == null) return ''; //Handle null or undefined
-
-    if (typeof inp === 'string') { //Handle strings
-        return inp.replace(
-            /[&<>'"]/g,
-            tag =>
-                ({
-                    '&': '&amp;',
-                    '<': '&lt;',
-                    '>': '&gt;',
-                    "'": '&#39;',
-                    '"': '&quot;'
-                }[tag] || tag
-            ))
-    }
-
-    return String(inp);
-};
-
 //Determine if a value is empty (null, undefined, or empty string)
 const isEmpty = value => {
     //Null or undefined are both empty
@@ -84,7 +63,6 @@ const splitBlockID = ( obj, blockID, reqResp = 'req' ) => {
 };
 
 export {
-    htmlContent,
     isEmpty,
     splitBlockID
 };

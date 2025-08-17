@@ -19,9 +19,9 @@
 //
 // ***************************************************************** */
 
-import { destructureDbData } from './destructureDBs.js';
 import { reqBlockIDs, respBlockStatus, reqRespBlockStatus } from './reqResp.js';
-import { htmlReqRespBlockStatus, htmlBase } from './html.js';
+import { htmlGeneral } from './html/companyInfo.js';
+import { htmlReqRespBlockStatus } from './html/reqResp.js';
 
 //Check if a variable is an object reference to D&B Direct+ data blocks
 function isDnbDplDBsJsObj(dbs) {
@@ -66,9 +66,6 @@ class DplDBs {
             primaryName: this.org?.primaryName,
             countryISO:  this.org?.countryISOAlpha2Code
         }
-
-        //Destructure the D&B Direct+ Data Blocks
-        this.dbData = destructureDbData.call(this);
     }
 
     //List the D&B Direct+ Data Blocks requested with level and version
@@ -84,7 +81,7 @@ class DplDBs {
     get htmlReqRespBlockStatus() { return htmlReqRespBlockStatus.call(this) }
 
     //D&B Direct+ Data Blocks base data in HTML format
-    get htmlBase() { return htmlBase.call(this) }
+    get htmlGeneral() { return htmlGeneral.call(this) }
 
     toString() {
         return `DUNS ${this.map121.duns}: ${this.map121.primaryName} (${this.map121.countryISO})`; 

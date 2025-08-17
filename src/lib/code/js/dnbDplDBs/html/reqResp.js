@@ -1,6 +1,6 @@
 /* ********************************************************************
 //
-// D&B Direct+ Data Blocks in HTML format
+// D&B Direct+ Data Blocks request/response data in HTML format
 //
 // Copyright 2025 Hans de Rooij
 //
@@ -19,8 +19,8 @@
 //
 // ***************************************************************** */
 
-import { htmlContent } from '../share/utils.js';
-import { reqRespBlockStatus } from './reqResp.js';
+import { htmlContent } from './utils.js';
+import { reqRespBlockStatus } from '../reqResp.js';
 
 function htmlReqRespBlockStatus() {
     const data = reqRespBlockStatus.call(this);
@@ -72,46 +72,6 @@ function htmlReqRespBlockStatus() {
     return sHTML;
 }
 
-function htmlBase() {
-    let sHTML = `
-<table>
-    <thead>
-        <tr>
-            <th colspan="2">Common data</th>
-        </tr>
-    </thead>
-
-    <tbody>
-        ${this.map121.inqDuns !== this.map121.duns ? `
-        <tr>
-            <th scope="row">DUNS requested</th>
-            <td>${htmlContent(this.map121.inqDuns)}</td>
-        </tr>
-        <tr>
-            <th scope="row">Trade-up</th>
-            <td>${htmlContent(this.map121.tradeUp)}</td>
-        </tr>
-        ` : ''}
-        <tr>
-            <th scope="row">DUNS delivered</th>
-            <td>${htmlContent(this.map121.duns)}</td>
-        </tr>
-        <tr>
-            <th scope="row">Primary Name</th>
-            <td>${htmlContent(this.map121.primaryName)}</td>
-        </tr>
-        <tr>
-            <th scope="row">Country ISO</th>
-            <td>${htmlContent(this.map121.countryISO)}</td>
-        </tr>
-    </tbody>
-</table>
-`;
-
-    return sHTML;
-}
-
 export {
-    htmlReqRespBlockStatus,
-    htmlBase
+    htmlReqRespBlockStatus
 };
