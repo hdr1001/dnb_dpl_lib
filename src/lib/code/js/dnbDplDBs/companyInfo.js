@@ -34,15 +34,18 @@ function opStatus(ctrlStatus) {
 
 //Add multilingual names
 function addMultilingualNames(tableRows, header, multilingualNames) {
-    const mlpn = multilingualNames.filter(elem => elem.language.dnbCode != 331) //Filter out US English
+    const mlns = multilingualNames.filter(elem => elem.language.dnbCode != 331) //Filter out US English
 
-    if(mlpn.length) {
-        const mapLanguages = new Map(mlpn.map(elem => [elem.language.dnbCode, elem.language.description]));
+    if(mlns.length) {
+        //The tradestyles have an associated priority
+        if(mlns[0].priority) mlns.sort((mln1, mln2) => mln1.priority - mln2.priority);
+
+        const mapLanguages = new Map(mlns.map(elem => [elem.language.dnbCode, elem.language.description]));
 
         mapLanguages.forEach((description, dnbCode) => 
             tableRows.push(new TableRow(
                 header, 
-                mlpn.filter(elem => elem.language.dnbCode === dnbCode).map(elem => elem.name),
+                mlns.filter(elem => elem.language.dnbCode === dnbCode).map(elem => elem.name),
                 description
             ))
         )
@@ -58,27 +61,29 @@ function tableRowsGeneral() {
         if(!isEmpty(this.map121.tradeUp)) tableRows.push(new TableRow('Trade-up', this.map121.tradeUp));
     }
     if(!isEmpty(this.map121.duns)) tableRows.push(new TableRow('DUNS delivered', this.map121.duns));
-    if(!isEmpty(this.map121.primaryName)) tableRows.push(new TableRow('Primary name', this.map121.primaryName));
+    if(!isEmpty(this.map121.primaryName)) tableRows.push(
+        new TableRow('Primary name', this.map121.primaryName, this.map121.primaryName === this.org.registeredName ? 'also registered name' : '')
+    );
     if(!isEmpty(this.map121.countryISO)) tableRows.push(new TableRow('Country ISO', this.map121.countryISO));
 
     //Destructure the D&B Direct+ Company information Data Block
-    const { registeredName, tradeStyleNames, dunsControlStatus,
+    const { registeredName,tradeStyleNames, dunsControlStatus,
                 multilingualPrimaryName, multilingualRegisteredNames, multilingualTradestyleNames,
                 businessEntityType, legalForm, registeredDetails,
                 controlOwnershipType, preferredLanguage,
                 startDate, incorporatedDate } = this.org;
 
     //Add Company Information attributes if they add value
-    if(!isEmpty(registeredName)) tableRows.push(new TableRow('Registered name', registeredName));
-    if(!isEmpty(tradeStyleNames)) tableRows.push(new TableRow('Trade styles', tradeStyleNames));
-    if(!isEmpty(multilingualPrimaryName)) {
-    }
-    if(!isEmpty(dunsControlStatus)) {
-        tableRows.push(new TableRow('Operating status', opStatus(dunsControlStatus)))
-    }
+    if(!isEmpty(registeredName) && this.map121.primaryName !== registeredName) tableRows.push(new TableRow('Registered name', registeredName));
+    if(!isEmpty(tradeStyleNames)) tableRows.push(
+        new TableRow('Trade styles', tradeStyleNames.sort((ts1, ts2) => ts1.priority - ts2.priority).map(elem => elem.name))
+    );
     if(!isEmpty(multilingualPrimaryName)) addMultilingualNames(tableRows, 'Primary name', multilingualPrimaryName);
     if(!isEmpty(multilingualRegisteredNames)) addMultilingualNames(tableRows, 'Registered name', multilingualRegisteredNames);
     if(!isEmpty(multilingualTradestyleNames)) addMultilingualNames(tableRows, 'Trade styles', multilingualTradestyleNames);
+
+    if(!isEmpty(dunsControlStatus)) tableRows.push(new TableRow('Operating status', opStatus(dunsControlStatus)));
+
     /*
     if(!isEmpty(businessEntityType)) tableRows.general.ci.businessEntityType = businessEntityType;
     if(!isEmpty(legalForm)) tableRows.general.ci.legalForm = legalForm;

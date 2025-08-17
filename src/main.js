@@ -35,7 +35,11 @@ const dnbDplDBs = new DplDBs( {
         duns: '123456789',
         countryISOAlpha2Code: 'NL',
         registeredName:"Reg name",
-        tradeStyleNames: ['Trade Style 1', 'Trade Style 2', 'Trade Style 3'],
+        tradeStyleNames: [
+          {"name": "Trade Style 3", "priority": 3},
+          {"name": "Trade Style 1", "priority": 1},
+          {"name": "Trade Style 2", "priority": 2}
+        ],
         "multilingualPrimaryName": [
             {
                 "language": {

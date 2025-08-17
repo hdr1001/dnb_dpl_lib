@@ -1,7 +1,7 @@
 {
   "name": "dnb_dpl_lib",
   "description": "Library of D&B Direct+ functionality",
-  "version": "0.1.11",
+  "version": "0.1.12",
   "type": "module",
   "main": "exp.js",
   "author": "Hans de Rooij",

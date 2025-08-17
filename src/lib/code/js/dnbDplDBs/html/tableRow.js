@@ -36,7 +36,7 @@ class TableRow {
                 <tr>
                     <th scope="row"}">
                         ${htmlContent(this.header.text) + 
-                            (this.header.note ? `<br /><small>${'* ' + htmlContent(this.header.note)}</small>` : '')}
+                            (this.header.note ? `<br /><small>${'*' + htmlContent(this.header.note)}</small>` : '')}
                     </th>
                     <td>${Array.isArray(this.content) ? this.content[0] : htmlContent(this.content)}</td>
                 </tr>
@@ -49,7 +49,7 @@ class TableRow {
                 ${index === 0 ? `
                 <th scope="row" rowspan="${this.content.length}">
                     ${htmlContent(this.header.text) +
-                        (this.header.note ? `<br /><small>${'* ' + htmlContent(this.header.note)}</small>` : '')}
+                        (this.header.note ? `<br /><small>${'*' + htmlContent(this.header.note)}</small>` : '')}
                 </th>
                 ` : ''}
                 <td>${htmlContent(elem)}</td>
